@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Portafolio de Tarifas, Servicios y Políticas de Hospedaje</title>
+  <style>
+    :root {
+      --verde-bosque: #1b3b32;
+      --verde-medio: #295246;
+      --crema-fondo: #f4f2ec;
+      --crema-suave: #faf9f5;
+      --dorado: #b89656;
+      --texto-oscuro: #1f2421;
+      --texto-gris: #525b56;
+      --borde: #e2dfd5;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background-color: #e6e3da;
+      color: var(--texto-oscuro);
+      line-height: 1.55;
+      padding: 28px 16px;
+    }
+
+    .toolbar {
+      max-width: 920px;
+      margin: 0 auto 16px auto;
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    .btn-pdf {
+      background-color: var(--verde-bosque);
+      color: #ffffff;
+      border: 1px solid var(--dorado);
+      padding: 10px 18px;
+      border-radius: 6px;
+      font-size: 0.875rem;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .btn-pdf:hover {
+      background-color: var(--verde-medio);
+    }
+
+    .document-sheet {
+      max-width: 920px;
+      margin: 0 auto;
+      background-color: #ffffff;
+      box-shadow: 0 18px 45px rgba(20, 35, 28, 0.14);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    .hero-header {
+      background: linear-gradient(135deg, var(--verde-bosque) 0%, #122822 100%);
+      color: #ffffff;
+      padding: 44px 40px;
+      border-bottom: 4px solid var(--dorado);
+    }
+
+    .hero-badge {
+      display: inline-block;
+      font-size: 0.75rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--dorado);
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    .hero-header h1 {
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 2.1rem;
+      line-height: 1.2;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    .hero-subtitle {
+      color: #d8e2de;
+      font-size: 0.98rem;
+      max-width: 640px;
+    }
+
+    .hero-meta {
+      margin-top: 22px;
+      padding-top: 16px;
+      border-top: 1px solid rgba(255, 255, 255, 0.18);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 22px;
+      font-size: 0.85rem;
+      color: #e6ece9;
+    }
+
+    .hero-meta span strong {
+      color: var(--dorado);
+    }
+
+    .section {
+      padding: 36px 40px;
+      border-bottom: 1px solid var(--borde);
+    }
+
+    .section:last-of-type {
+      border-bottom: none;
+    }
+
+    .section-header {
+      margin-bottom: 22px;
+    }
+
+    .section-tag {
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--dorado);
+      font-weight: 700;
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .section-title {
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 1.5rem;
+      color: var(--verde-bosque);
+      font-weight: 700;
+    }
+
+    .rooms-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 18px;
+    }
+
+    .room-card {
+      background-color: var(--crema-suave);
+      border: 1px solid var(--borde);
+      border-left: 4px solid var(--verde-bosque);
+      border-radius: 6px;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .room-card.featured {
+      grid-column: span 2;
+      border-left-color: var(--dorado);
+      background-color: var(--crema-fondo);
+    }
+
+    .room-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+
+    .room-name {
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--verde-bosque);
+    }
+
+    .room-qty {
+      background-color: var(--verde-bosque);
+      color: #ffffff;
+      font-size: 0.72rem;
+      font-weight: 600;
+      padding: 3px 9px;
+      border-radius: 999px;
+      white-space: nowrap;
+    }
+
+    .room-specs {
+      list-style: none;
+      font-size: 0.88rem;
+      color: var(--texto-gris);
+      margin-bottom: 16px;
+    }
+
+    .room-specs li {
+      margin-bottom: 6px;
+    }
+
+    .room-specs li strong {
+      color: var(--texto-oscuro);
+    }
+
+    .room-price-box {
+      padding-top: 12px;
+      border-top: 1px dashed var(--borde);
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+    }
+
+    .price-amount {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--verde-bosque);
+    }
+
+    .price-unit {
+      font-size: 0.78rem;
+      color: var(--texto-gris);
+      font-weight: 500;
+    }
+
+    .table-wrapper {
+      width: 100%;
+      overflow-x: auto;
+      border: 1px solid var(--borde);
+      border-radius: 6px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.88rem;
+      text-align: left;
+    }
+
+    thead {
+      background-color: var(--verde-bosque);
+      color: #ffffff;
+    }
+
+    th {
+      padding: 13px 16px;
+      font-weight: 600;
+    }
+
+    td {
+      padding: 13px 16px;
+      border-bottom: 1px solid var(--borde);
+      vertical-align: top;
+    }
+
+    tbody tr:nth-child(even) {
+      background-color: var(--crema-suave);
+    }
+
+    tbody tr:last-child td {
+      border-bottom: none;
+    }
+
+    .badge-included {
+      display: inline-block;
+      background-color: #e3efe9;
+      color: var(--verde-bosque);
+      font-weight: 700;
+      font-size: 0.78rem;
+      padding: 3px 10px;
+      border-radius: 4px;
+    }
+
+    .price-cell {
+      font-weight: 700;
+      color: var(--verde-bosque);
+      white-space: nowrap;
+    }
+
+    .policies-list {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+
+    .policy-item {
+      background-color: var(--crema-suave);
+      border: 1px solid var(--borde);
+      border-radius: 6px;
+      padding: 14px 18px;
+      font-size: 0.88rem;
+    }
+
+    .policy-item strong {
+      color: var(--verde-bosque);
+      display: block;
+      margin-bottom: 3px;
+      font-size: 0.92rem;
+    }
+
+    .deposit-banner {
+      background-color: var(--verde-bosque);
+      color: #ffffff;
+      padding: 18px 22px;
+      border-radius: 6px;
+      border-left: 4px solid var(--dorado);
+      font-size: 0.9rem;
+      margin-bottom: 22px;
+    }
+
+    .deposit-banner strong {
+      color: var(--dorado);
+    }
+
+    .doc-footer {
+      background-color: var(--crema-fondo);
+      padding: 26px 40px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      font-size: 0.84rem;
+      color: var(--texto-gris);
+      border-top: 2px solid var(--dorado);
+    }
+
+    .footer-brand {
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--verde-bosque);
+    }
+
+    @media (max-width: 720px) {
+      .hero-header, .section, .doc-footer {
+        padding: 26px 20px;
+      }
+      .rooms-grid {
+        grid-template-columns: 1fr;
+      }
+      .room-card.featured {
+        grid-column: span 1;
+      }
+      .hero-header h1 {
+        font-size: 1.7rem;
+      }
+    }
+
+    @media print {
+      body {
+        background: #ffffff;
+        padding: 0;
+      }
+      .toolbar {
+        display: none;
+      }
+      .document-sheet {
+        box-shadow: none;
+        max-width: 100%;
+        border-radius: 0;
+      }
+      .section {
+        padding: 24px 30px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="toolbar">
+    <button class="btn-pdf" onclick="window.print()">Guardar / Imprimir PDF</button>
+  </div>
+
+  <main class="document-sheet">
+    <header class="hero-header">
+      <span class="hero-badge">Portafolio Comercial &bull; Tarifas Vigentes</span>
+      <h1>Alojamiento, Servicios &amp; Políticas</h1>
+      <p class="hero-subtitle">
+        Guía oficial de habitaciones, experiencias complementarias y condiciones de reserva en el Valle de Sibundoy.
+      </p>
+      <div class="hero-meta">
+        <span><strong>Ubicación:</strong> Valle de Sibundoy, Putumayo</span>
+        <span><strong>Horario de Atención:</strong> 5:00 a.m. – 10:00 p.m.</span>
+        <span><strong>Moneda:</strong> Pesos Colombianos (COP)</span>
+      </div>
+    </header>
+
+    <section class="section">
+      <div class="section-header">
+        <span class="section-tag">Portafolio de Hospedaje</span>
+        <h2 class="section-title">Detalles de Habitaciones</h2>
+      </div>
+
+      <div class="rooms-grid">
+        <article class="room-card">
+          <div>
+            <div class="room-top">
+              <h3 class="room-name">Habitación Sencilla Estándar</h3>
+              <span class="room-qty">10 disponibles</span>
+            </div>
+            <ul class="room-specs">
+              <li><strong>Capacidad:</strong> 2 huéspedes (1 cama doble)</li>
+              <li><strong>Amenidades:</strong> TV 50", sofá, closet/perchero</li>
+            </ul>
+          </div>
+          <div class="room-price-box">
+            <span class="price-amount">$ 150.000 COP</span>
+            <span class="price-unit">por noche / pareja</span>
+          </div>
+        </article>
+
+        <article class="room-card">
+          <div>
+            <div class="room-top">
+              <h3 class="room-name">Habitación Sencilla con Jacuzzi</h3>
+              <span class="room-qty">2 disponibles</span>
+            </div>
+            <ul class="room-specs">
+              <li><strong>Capacidad:</strong> 2 huéspedes (1 cama doble)</li>
+              <li><strong>Amenidades:</strong> TV 50", sofá, nevera, jacuzzi para 2 personas</li>
+            </ul>
+          </div>
+          <div class="room-price-box">
+            <span class="price-amount">$ 200.000 COP</span>
+            <span class="price-unit">por noche / pareja</span>
+          </div>
+        </article>
+
+        <article class="room-card">
+          <div>
+            <div class="room-top">
+              <h3 class="room-name">Habitación Doble Estándar</h3>
+              <span class="room-qty">5 disponibles</span>
+            </div>
+            <ul class="room-specs">
+              <li><strong>Capacidad:</strong> 4 huéspedes (2 camas dobles)</li>
+              <li><strong>Amenidades:</strong> TV 50", sofá, closet/perchero</li>
+            </ul>
+          </div>
+          <div class="room-price-box">
+            <span class="price-amount">$ 250.000 COP</span>
+            <span class="price-unit">por noche / 4 personas</span>
+          </div>
+        </article>
+
+        <article class="room-card">
+          <div>
+            <div class="room-top">
+              <h3 class="room-name">Habitación Doble con Jacuzzi</h3>
+              <span class="room-qty">2 disponibles</span>
+            </div>
+            <ul class="room-specs">
+              <li><strong>Capacidad:</strong> 4 huéspedes (2 camas dobles)</li>
+              <li><strong>Amenidades:</strong> TV 50", sofá cómodo, nevera, jacuzzi para 2 personas</li>
+            </ul>
+          </div>
+          <div class="room-price-box">
+            <span class="price-amount">$ 300.000 COP</span>
+            <span class="price-unit">por noche / 4 personas</span>
+          </div>
+        </article>
+
+        <article class="room-card featured">
+          <div>
+            <div class="room-top">
+              <h3 class="room-name">Suite Familiar / Triple con Jacuzzi</h3>
+              <span class="room-qty">1 disponible</span>
+            </div>
+            <ul class="room-specs">
+              <li><strong>Capacidad:</strong> 6 huéspedes (3 camas dobles, 2 ambientes)</li>
+              <li><strong>Amenidades:</strong> TV 50", sofá de 2 secciones, nevera, jacuzzi para 2 personas</li>
+            </ul>
+          </div>
+          <div class="room-price-box">
+            <span class="price-amount">$ 400.000 COP</span>
+            <span class="price-unit">por noche / 6 personas</span>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-header">
+        <span class="section-tag">Bienestar &amp; Gastronomía</span>
+        <h2 class="section-title">Tarifas Servicios Adicionales</h2>
+      </div>
+
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>Servicio / Instalación</th>
+              <th>Tarifa (COP)</th>
+              <th>Descripción y Condiciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Gimnasio</strong></td>
+              <td><span class="badge-included">Incluido</span></td>
+              <td>Acceso totalmente incluido en la tarifa de alojamiento.</td>
+            </tr>
+            <tr>
+              <td><strong>Terraza Panorámica</strong></td>
+              <td><span class="badge-included">Incluido</span></td>
+              <td>Acceso libre de 360° al Valle de Sibundoy.</td>
+            </tr>
+            <tr>
+              <td><strong>Desayuno Regional</strong></td>
+              <td class="price-cell">$ 20.000</td>
+              <td>Por persona (opcional / bajo solicitud).</td>
+            </tr>
+            <tr>
+              <td><strong>Almuerzo y Cena (Menú Ejecutivo)</strong></td>
+              <td class="price-cell">$ 30.000</td>
+              <td>Por persona (opcional / bajo solicitud).</td>
+            </tr>
+            <tr>
+              <td><strong>Zona Húmeda</strong></td>
+              <td class="price-cell">$ 150.000</td>
+              <td>Por persona, dos horas de servicio privado bajo reserva previa.</td>
+            </tr>
+            <tr>
+              <td><strong>Horarios de Atención</strong></td>
+              <td>—</td>
+              <td>De 5:00 a.m. hasta las 10:00 p.m.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-header">
+        <span class="section-tag">Normativa &amp; Reservas</span>
+        <h2 class="section-title">Políticas y Condiciones de Servicio</h2>
+      </div>
+
+      <div class="policies-list">
+        <div class="policy-item">
+          <strong>Convivencia y Respeto</strong>
+          Se exige un comportamiento decoroso. Cero tolerancia a ruidos molestos, discriminación o conductas ofensivas.
+        </div>
+        <div class="policy-item">
+          <strong>Espacios Libres de Humo</strong>
+          Prohibido fumar en habitaciones y áreas de convivencia social.
+        </div>
+        <div class="policy-item">
+          <strong>Sostenibilidad y Daños</strong>
+          Uso responsable de agua y energía. El huésped asume el costo de reparación o reposición por daños causados a las instalaciones y utilería de hospedaje.
+        </div>
+        <div class="policy-item">
+          <strong>Seguridad y Restricciones</strong>
+          Prohibido el ingreso de drogas ilegales o alcohol externo en áreas comunes. Acceso autorizado del personal para labores de rutina/limpieza.
+        </div>
+        <div class="policy-item">
+          <strong>Política de Mascotas</strong>
+          Exclusivo para razas pequeñas y medianas. Es obligatorio traer su propia cama. Prohibido subir mascotas a las camas. Dueños 100% responsables del aseo y conducta.
+        </div>
+        <div class="policy-item">
+          <strong>Control de Visitas</strong>
+          Registro obligatorio en recepción; sujeto a cargos adicionales. No está permitido alojar a terceros sin autorización previa de la gerencia.
+        </div>
+      </div>
+
+      <div class="deposit-banner">
+        <strong>Condición de Reserva:</strong> Todas las reservas confirmadas requieren el pago de un <strong>anticipo no reembolsable del 50%</strong> del monto total de reserva. Al realizar el pago, el huésped acepta explícitamente los términos y condiciones aquí descritos:
+      </div>
+
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>Plazo de Cancelación</th>
+              <th>Penalidad Aplicada</th>
+              <th>Reembolso del Saldo Restante</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Con 30 días o más</strong> de antelación a la fecha de check-in.</td>
+              <td>Anticipo de 50%.</td>
+              <td><strong>100%</strong> del saldo restante pagado.</td>
+            </tr>
+            <tr>
+              <td><strong>Entre 15 y 29 días</strong> de antelación a la fecha de check-in.</td>
+              <td>Anticipo de 50%.</td>
+              <td><strong>50%</strong> del saldo restante pagado.</td>
+            </tr>
+            <tr>
+              <td><strong>Con 2 días o menos (48 h)</strong> de antelación o No Show (No presentarse).</td>
+              <td><strong>100%</strong> del valor total de la reserva.</td>
+              <td>No hay reembolso.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <footer class="doc-footer">
+      <div>
+        <div class="footer-brand">[Nombre del Establecimiento]</div>
+        <div>Valle de Sibundoy, Putumayo &bull; RNT: [Número RNT]</div>
+      </div>
+      <div>
+        <strong>Reservas:</strong> [WhatsApp / Teléfono] &bull; [Correo o Web]
+      </div>
+    </footer>
+  </main>
+
+</body>
+</html>
